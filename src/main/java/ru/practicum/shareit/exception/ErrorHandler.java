@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-
+import java.util.Map;
 
 @RestControllerAdvice
 @Slf4j
@@ -15,85 +15,86 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleUserValidationException(UserValidationException e) {
+    public Map<String, String> handleUserValidationException(UserValidationException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Validation for user failed: " + e.getMessage());
+        return Map.of("Validation for user failed", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public Map<String, String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Validation failed: " + e.getMessage());
+        return Map.of("Validation failed", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleUserNotFoundException(UserNotFoundException e) {
+    public Map<String, String> handleUserNotFoundException(UserNotFoundException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Search for user failed: " + e.getMessage());
+        return Map.of("Search for user failed", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleItemNotFoundException(ItemNotFoundException e) {
+    public Map<String, String> handleItemNotFoundException(ItemNotFoundException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Search for item failed: " + e.getMessage());
+        return Map.of("Search for item failed", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorResponse handleNotOwnerForbiddenException(NotOwnerForbiddenException e) {
+    public Map<String, String> handleNotOwnerForbiddenException(NotOwnerForbiddenException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("User must be the owner: " + e.getMessage());
+        return Map.of("User must be the owner", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleEmailConflictException(EmailConflictException e) {
+    public Map<String, String> handleEmailConflictException(EmailConflictException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Email conflict has occurred: " + e.getMessage());
+        return Map.of("Email conflict has occurred", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleBookingNotFoundException(BookingNotFoundException e) {
+    public Map<String, String> handleBookingNotFoundException(BookingNotFoundException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Search for booking failed: " + e.getMessage());
+        return Map.of("Search for booking failed", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleBookingValidationException(BookingValidationException e) {
+    public Map<String, String> handleBookingValidationException(BookingValidationException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Validation for booking failed: " + e.getMessage());
+        return Map.of("Validation for booking failed", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleUnsupportedBookingStateException(UnsupportedBookingStateException e) {
+    public Map<String, String> handleUnsupportedBookingStateException(UnsupportedBookingStateException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("error: " + e.getMessage());
+        return Map.of("error", e.getMessage());
     }
 
+    // I would set code 403, but postman tests require 404
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handleUserAccessForbiddenException(UserAccessForbiddenException e) {
+    public Map<String, String> handleUserAccessForbiddenException(UserAccessForbiddenException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("User access denied: " + e.getMessage());
+        return Map.of("User access denied", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleCommentValidationException(CommentValidationException e) {
+    public Map<String, String> handleCommentValidationException(CommentValidationException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Validation for comment failed: " + e.getMessage());
+        return Map.of("Validation for comment failed", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleUnknownException(Throwable e) {
+    public Map<String, String> handleUnknownException(Throwable e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Unknown error has occurred: " + e.getMessage());
+        return Map.of("Unknown error has occurred", e.getMessage());
     }
 }
