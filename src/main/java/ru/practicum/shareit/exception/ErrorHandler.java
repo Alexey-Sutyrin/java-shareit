@@ -1,4 +1,4 @@
-package ru.practicum.shareit.exception;
+package ru.practicum.shareit.exception; //map returned - classic not fit
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -75,7 +75,7 @@ public class ErrorHandler {
         log.error(e.getMessage());
         return Map.of("error", e.getMessage());
     }
-    
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> handleUserAccessForbiddenException(UserAccessForbiddenException e) {
