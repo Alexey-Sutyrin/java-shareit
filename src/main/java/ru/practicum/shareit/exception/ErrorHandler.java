@@ -73,10 +73,9 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleUnsupportedBookingStateException(UnsupportedBookingStateException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("Unsupported booking state error: " + e.getMessage());
+        return new ErrorResponse("error: " + e.getMessage());
     }
 
-    // First set code 403, but Postman tests require code 404
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleUserAccessForbiddenException(UserAccessForbiddenException e) {
