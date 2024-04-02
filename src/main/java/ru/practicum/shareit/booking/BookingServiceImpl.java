@@ -9,7 +9,7 @@ import ru.practicum.shareit.booking.dto.BookingOutDto;
 import ru.practicum.shareit.exception.*;
 import ru.practicum.shareit.item.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.user.User;
+import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.user.UserService;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserMapper;
