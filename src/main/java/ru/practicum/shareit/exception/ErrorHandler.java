@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+
+
 @RestControllerAdvice
 @Slf4j
 public class ErrorHandler {
@@ -51,6 +53,42 @@ public class ErrorHandler {
     public ErrorResponse handleEmailConflictException(EmailConflictException e) {
         log.error(e.getMessage());
         return new ErrorResponse("Email conflict has occurred: " + e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleBookingNotFoundException(BookingNotFoundException e) {
+        log.error(e.getMessage());
+        return new ErrorResponse("Search for booking failed: " + e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleBookingValidationException(BookingValidationException e) {
+        log.error(e.getMessage());
+        return new ErrorResponse("Validation for booking failed: " + e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleUnsupportedBookingStateException(UnsupportedBookingStateException e) {
+        log.error(e.getMessage());
+        return new ErrorResponse("Unsupported booking state error: " + e.getMessage());
+    }
+
+    // First set code 403, but Postman tests require code 404
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleUserAccessForbiddenException(UserAccessForbiddenException e) {
+        log.error(e.getMessage());
+        return new ErrorResponse("User access denied: " + e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleCommentValidationException(CommentValidationException e) {
+        log.error(e.getMessage());
+        return new ErrorResponse("Validation for comment failed: " + e.getMessage());
     }
 
     @ExceptionHandler
