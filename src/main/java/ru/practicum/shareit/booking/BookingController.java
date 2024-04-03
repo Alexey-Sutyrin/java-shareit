@@ -37,8 +37,14 @@ public class BookingController {
         return bookingService.findBookingById(bookingId, userId);
     }
 
-    @GetMapping
+    /*@GetMapping - incorrect statement changed
     public List<BookingOutDto> findBookingsOfUser(@RequestParam(defaultValue = "ALL", required = false) String state,
+                                                  @RequestHeader("X-Sharer-User-Id") Long userId) {
+        BookingState bookingState = BookingState.valueOf(state);
+        return bookingService.findBookingsOfUser(bookingState, userId);
+    }*/
+    @GetMapping
+    public List<BookingOutDto> findBookingsOfUser(@RequestParam(defaultValue = "ALL") String state,
                                                   @RequestHeader("X-Sharer-User-Id") Long userId) {
         BookingState bookingState = BookingState.valueOf(state);
         return bookingService.findBookingsOfUser(bookingState, userId);
