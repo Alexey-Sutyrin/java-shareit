@@ -71,7 +71,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleUnsupportedBookingStateException(UnsupportedBookingStateException e) {
         log.error(e.getMessage());
-        return new ErrorResponse("error: " + e.getMessage());
+        return new ErrorResponse("Unsupported booking state: " + e.getMessage());
     }
 
     @ExceptionHandler
