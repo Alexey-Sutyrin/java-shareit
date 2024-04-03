@@ -66,14 +66,7 @@ public class ErrorHandler {
         log.error(e.getMessage());
         return new ErrorResponse("Validation for booking failed: " + e.getMessage());
     }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleUnsupportedBookingStateException(UnsupportedBookingStateException e) {
-        log.error(e.getMessage());
-        return new ErrorResponse("error: " + e.getMessage());
-    }
-
+    
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleUserAccessForbiddenException(UserAccessForbiddenException e) {
