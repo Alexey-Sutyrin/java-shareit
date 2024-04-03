@@ -1,4 +1,4 @@
-package ru.practicum.shareit.exception; //ErrorHandler - ErrorResponse variant
+package ru.practicum.shareit.exception; //ErrorResponse returned
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import java.util.Map;
 
 @RestControllerAdvice
 @Slf4j
@@ -66,7 +67,7 @@ public class ErrorHandler {
         log.error(e.getMessage());
         return new ErrorResponse("Validation for booking failed: " + e.getMessage());
     }
-    
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleUserAccessForbiddenException(UserAccessForbiddenException e) {
@@ -86,5 +87,12 @@ public class ErrorHandler {
     public ErrorResponse handleUnknownException(Throwable e) {
         log.error(e.getMessage());
         return new ErrorResponse("Unknown error has occurred: " + e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleUnsupportedBookingStateException(UnsupportedBookingStateException e) {
+        log.error(e.getMessage());
+        return Map.of("error", e.getMessage());
     }
 }
