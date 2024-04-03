@@ -1,4 +1,4 @@
-package ru.practicum.shareit.exception; //map returned - classic ErrorResponse not fit
+package ru.practicum.shareit.exception; //map returned - classic ErrorResponse did not fit
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -73,7 +73,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleUnsupportedBookingStateException(UnsupportedBookingStateException e) {
         log.error(e.getMessage());
-        return Map.of("error", e.getMessage());
+        return Map.of("Unsupported booking state error", e.getMessage());
     }
 
     @ExceptionHandler
