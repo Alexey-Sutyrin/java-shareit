@@ -1,3 +1,3 @@
 # java-shareit
 Template repository for Shareit project.
-Sprint 13 - add - controllers - Iteration 2
+Sprint 14 - add - bookings - Iteration 1
