@@ -1,7 +1,8 @@
-package ru.practicum.shareit.booking.dto;
+package ru.practicum.shareit.booking.dto; //mapToBookingDto earlier changed to Collect to List
 
 import ru.practicum.shareit.booking.Booking;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,14 +25,6 @@ public class BookingMapper {
                 .map(BookingMapper::toBookingDto)
                 .collect(Collectors.toList());
     }
-    /*старый способ убран, использованы поток stream, метод map и собран результат с помощью Collectors toList
-    public static List<BookingOutDto> mapToBookingDto(Collection<Booking> bookings) {
-        List<BookingOutDto> dtos = new ArrayList<>();
-        for (Booking booking : bookings) {
-            dtos.add(toBookingDto(booking));
-        }
-        return dtos;
-    }*/
 
     public static Booking toBooking(BookingDto bookingDto) {
         Booking booking = new Booking();

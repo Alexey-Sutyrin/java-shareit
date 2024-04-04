@@ -1,4 +1,4 @@
-package ru.practicum.shareit.user.model;
+package ru.practicum.shareit.user.model; // File User moved in Model folder
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

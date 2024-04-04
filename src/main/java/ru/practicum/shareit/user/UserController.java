@@ -1,4 +1,4 @@
-package ru.practicum.shareit.user; // Autowired still disabled
+package ru.practicum.shareit.user; // Autowired link deleted
 
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.dto.UserDto;
