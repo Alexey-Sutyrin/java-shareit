@@ -2,7 +2,6 @@ package ru.practicum.shareit.booking.dto; //mapToBookingDto earlier changed to C
 
 import ru.practicum.shareit.booking.Booking;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
