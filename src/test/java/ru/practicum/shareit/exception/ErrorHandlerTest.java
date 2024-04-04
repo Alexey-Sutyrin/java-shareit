@@ -12,59 +12,51 @@ public class ErrorHandlerTest {
 
     @Test
     public void handleUserValidationExceptionTest() {
-        UserValidationException exception = new UserValidationException("");
-        ErrorResponse response = errorHandler.handleUserValidationException(exception);
+        Map<String, String> response = errorHandler.handleUserValidationException(new UserValidationException(""));
 
-        assertEquals("Validation for user failed", response.getMessage());
+        assertEquals(response, Map.of("Validation for user failed", ""));
     }
 
     @Test
     public void handleUserNotFoundExceptionTest() {
-        UserNotFoundException exception = new UserNotFoundException("");
-        ErrorResponse response = errorHandler.handleUserNotFoundException(exception);
+        Map<String, String> response = errorHandler.handleUserNotFoundException(new UserNotFoundException(""));
 
-        assertEquals("Search for user failed", response.getMessage());
+        assertEquals(response, Map.of("Search for user failed", ""));
     }
-
 
     @Test
     public void handleItemNotFoundExceptionTest() {
-        ItemNotFoundException exception = new ItemNotFoundException("");
-        ErrorResponse response = errorHandler.handleItemNotFoundException(exception);
+        Map<String, String> response = errorHandler.handleItemNotFoundException(new ItemNotFoundException(""));
 
-        assertEquals("Search for item failed", response.getMessage());
+        assertEquals(response, Map.of("Search for item failed", ""));
     }
 
     @Test
     public void handleNotOwnerForbiddenExceptionTest() {
-        NotOwnerForbiddenException exception = new NotOwnerForbiddenException("");
-        ErrorResponse response = errorHandler.handleNotOwnerForbiddenException(exception);
+        Map<String, String> response = errorHandler.handleNotOwnerForbiddenException(new NotOwnerForbiddenException(""));
 
-        assertEquals("User must be the owner", response.getMessage());
+        assertEquals(response, Map.of("User must be the owner", ""));
     }
 
     @Test
     public void handleEmailConflictExceptionTest() {
-        EmailConflictException exception = new EmailConflictException("");
-        ErrorResponse response = errorHandler.handleEmailConflictException(exception);
+        Map<String, String> response = errorHandler.handleEmailConflictException(new EmailConflictException(""));
 
-        assertEquals("Email conflict has occurred", response.getMessage());
+        assertEquals(response, Map.of("Email conflict has occurred", ""));
     }
 
     @Test
     public void handleBookingNotFoundExceptionTest() {
-        BookingNotFoundException exception = new BookingNotFoundException("");
-        ErrorResponse response = errorHandler.handleBookingNotFoundException(exception);
+        Map<String, String> response = errorHandler.handleBookingNotFoundException(new BookingNotFoundException(""));
 
-        assertEquals("Search for booking failed", response.getMessage());
+        assertEquals(response, Map.of("Search for booking failed", ""));
     }
 
     @Test
     public void handleBookingValidationExceptionTest() {
-        BookingValidationException exception = new BookingValidationException("");
-        ErrorResponse response = errorHandler.handleBookingValidationException(exception);
+        Map<String, String> response = errorHandler.handleBookingValidationException(new BookingValidationException(""));
 
-        assertEquals("Validation for booking failed", response.getMessage());
+        assertEquals(response, Map.of("Validation for booking failed", ""));
     }
 
     @Test
@@ -76,33 +68,29 @@ public class ErrorHandlerTest {
 
     @Test
     public void handleUserAccessForbiddenExceptionTest() {
-        UserAccessForbiddenException exception = new UserAccessForbiddenException("");
-        ErrorResponse response = errorHandler.handleUserAccessForbiddenException(exception);
+        Map<String, String> response = errorHandler.handleUserAccessForbiddenException(new UserAccessForbiddenException(""));
 
-        assertEquals("User access denied", response.getMessage());
+        assertEquals(response, Map.of("User access denied", ""));
     }
 
     @Test
     public void handleCommentValidationExceptionTest() {
-        CommentValidationException exception = new CommentValidationException("");
-        ErrorResponse response = errorHandler.handleCommentValidationException(exception);
+        Map<String, String> response = errorHandler.handleCommentValidationException(new CommentValidationException(""));
 
-        assertEquals("Validation for comment failed", response.getMessage());
+        assertEquals(response, Map.of("Validation for comment failed", ""));
     }
 
     @Test
     public void handleItemRequestNotFoundExceptionTest() {
-        ItemRequestNotFoundException exception = new ItemRequestNotFoundException("");
-        ErrorResponse response = errorHandler.handleItemRequestNotFoundException(exception);
+        Map<String, String> response = errorHandler.handleItemRequestNotFoundException(new ItemRequestNotFoundException(""));
 
-        assertEquals("Search for ItemRequest failed", response.getMessage());
+        assertEquals(response, Map.of("Search for ItemRequest failed", ""));
     }
 
     @Test
     public void handleUnknownExceptionTest() {
-        Throwable exception = new Throwable("");
-        ErrorResponse response = errorHandler.handleUnknownException(exception);
+        Map<String, String> response = errorHandler.handleUnknownException(new Throwable(""));
 
-        assertEquals("Unknown error has occurred", response.getMessage());
+        assertEquals(response, Map.of("Unknown error has occurred", ""));
     }
 }
