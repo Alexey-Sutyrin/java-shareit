@@ -19,13 +19,11 @@ public class UserMapperJsonTest {
 
     @Test
     public void testSerializeUserDto() throws Exception {
-        // Создаем объект User
+
         User user = new User(1L, "TestUser", "test@example.com");
 
-        // Сериализуем объект в JSON
         String json = objectMapper.writeValueAsString(user);
 
-        // Проверяем, что JSON содержит необходимые поля и значения
         assertThat(json).contains("\"id\":1");
         assertThat(json).contains("\"name\":\"TestUser\"");
         assertThat(json).contains("\"email\":\"test@example.com\"");
@@ -45,10 +43,8 @@ public class UserMapperJsonTest {
                 new User(2L, "TestUser2", "test2@example.com")
         );
 
-        // Сериализуем список в JSON
         String json = objectMapper.writeValueAsString(UserMapper.mapToUserDto(userList));
 
-        // Проверяем, что JSON содержит информацию о каждом пользователе
         assertThat(json).contains("\"id\":1");
         assertThat(json).contains("\"name\":\"TestUser1\"");
         assertThat(json).contains("\"email\":\"test1@example.com\"");

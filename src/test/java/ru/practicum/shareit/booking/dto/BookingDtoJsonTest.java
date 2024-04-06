@@ -18,7 +18,7 @@ public class BookingDtoJsonTest {
 
     @Test
     public void testSerializeBookingDto() throws Exception {
-        // Создаем объект BookingDto
+        // Creating BookingDto object
         BookingDto bookingDto = BookingDto.builder()
                 .id(1L)
                 .itemId(1L)
@@ -27,20 +27,20 @@ public class BookingDtoJsonTest {
                 .status(BookingStatus.CONFIRMED)
                 .build();
 
-        // Сериализуем объект в JSON
+        // Serializing object to JSON
         String json = objectMapper.writeValueAsString(bookingDto);
 
-        // Проверяем, что JSON содержит необходимые поля и значения
+        // Checking JSON for needed elements
         assertThat(json).contains("\"id\":1");
         assertThat(json).contains("\"itemId\":1");
         assertThat(json).contains("\"start\":\"2024-04-01T10:00:00\"");
         assertThat(json).contains("\"end\":\"2024-04-02T10:00:00\"");
         assertThat(json).contains("\"status\":\"CONFIRMED\"");
 
-        // Десериализуем JSON обратно в объект BookingDto
+        // De-serializing JSON back to BookingDto object
         BookingDto deserializedBookingDto = objectMapper.readValue(json, BookingDto.class);
 
-        // Проверяем, что объекты равны
+        // Checking objects for equality
         assertThat(deserializedBookingDto).isEqualTo(bookingDto);
     }
 }

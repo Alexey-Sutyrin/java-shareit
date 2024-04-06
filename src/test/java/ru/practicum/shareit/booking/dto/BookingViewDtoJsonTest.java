@@ -17,7 +17,7 @@ public class BookingViewDtoJsonTest {
 
     @Test
     public void testSerializeBookingViewDto() throws Exception {
-        // Создаем объект BookingViewDto
+
         BookingViewDto bookingViewDto = BookingViewDto.builder()
                 .id(1L)
                 .start(LocalDateTime.of(2024, 4, 1, 10, 0))
@@ -26,20 +26,16 @@ public class BookingViewDtoJsonTest {
                 .itemId(1L)
                 .build();
 
-        // Сериализуем объект в JSON
         String json = objectMapper.writeValueAsString(bookingViewDto);
 
-        // Проверяем, что JSON содержит необходимые поля и значения
         assertThat(json).contains("\"id\":1");
         assertThat(json).contains("\"start\":\"2024-04-01T10:00:00\"");
         assertThat(json).contains("\"end\":\"2024-04-02T10:00:00\"");
         assertThat(json).contains("\"bookerId\":1");
         assertThat(json).contains("\"itemId\":1");
 
-        // Десериализуем JSON обратно в объект BookingViewDto
         BookingViewDto deserializedBookingViewDto = objectMapper.readValue(json, BookingViewDto.class);
 
-        // Проверяем, что объекты равны
         assertThat(deserializedBookingViewDto).isEqualTo(bookingViewDto);
     }
 }
