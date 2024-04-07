@@ -1,4 +1,4 @@
-package ru.practicum.shareit.booking;
+package ru.practicum.shareit.booking; // required = false state deleted from RequestParam
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -8,6 +8,8 @@ import ru.practicum.shareit.booking.dto.BookingOutDto;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 
@@ -37,23 +39,21 @@ public class BookingController {
         return bookingService.findBookingById(bookingId, userId);
     }
 
-    /*@GetMapping - incorrect statement changed
-    public List<BookingOutDto> findBookingsOfUser(@RequestParam(defaultValue = "ALL", required = false) String state,
-                                                  @RequestHeader("X-Sharer-User-Id") Long userId) {
-        BookingState bookingState = BookingState.valueOf(state);
-        return bookingService.findBookingsOfUser(bookingState, userId);
-    }*/
     @GetMapping
     public List<BookingOutDto> findBookingsOfUser(@RequestParam(defaultValue = "ALL") String state,
-                                                  @RequestHeader("X-Sharer-User-Id") Long userId) {
+                                                  @RequestHeader("X-Sharer-User-Id") Long userId,
+                                                  @PositiveOrZero @RequestParam(defaultValue = "0") int from,
+                                                  @Positive @RequestParam(defaultValue = "10") int size) {
         BookingState bookingState = BookingState.valueOf(state);
-        return bookingService.findBookingsOfUser(bookingState, userId);
+        return bookingService.findBookingsOfUser(bookingState, userId, from, size);
     }
 
     @GetMapping("/owner")
-    public List<BookingOutDto> findBookingsOfOwner(@RequestParam(defaultValue = "ALL", required = false) String state,
-                                                   @RequestHeader("X-Sharer-User-Id") Long userId) {
+    public List<BookingOutDto> findBookingsOfOwner(@RequestParam(defaultValue = "ALL") String state,
+                                                   @RequestHeader("X-Sharer-User-Id") Long userId,
+                                                   @PositiveOrZero @RequestParam(defaultValue = "0") int from,
+                                                   @Positive @RequestParam(defaultValue = "10") int size) {
         BookingState bookingState = BookingState.valueOf(state);
-        return bookingService.findBookingsOfOwner(bookingState, userId);
+        return bookingService.findBookingsOfOwner(bookingState, userId, from, size);
     }
 }
