@@ -1,4 +1,4 @@
-package ru.practicum.shareit.exception; // ErrorResponse <-> Map usage
+package ru.practicum.shareit.exception; // ErrorResponse и handleMethod argument added
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,23 +15,23 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleUserValidationException(UserValidationException e) {
+    public ErrorResponse handleUserValidationException(UserValidationException e) {
         log.error(e.getMessage());
-        return Map.of("Validation for user failed", e.getMessage());
+        return new ErrorResponse("Validation for user failed", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ErrorResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error(e.getMessage());
-        return Map.of("Validation failed", e.getMessage());
+        return new ErrorResponse("Validation failed", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> handleUserNotFoundException(UserNotFoundException e) {
+    public ErrorResponse handleUserNotFoundException(UserNotFoundException e) {
         log.error(e.getMessage());
-        return Map.of("Search for user failed", e.getMessage());
+        return new ErrorResponse("Search for user failed", e.getMessage());
     }
 
     @ExceptionHandler
@@ -76,7 +76,6 @@ public class ErrorHandler {
         return Map.of("error", e.getMessage());
     }
 
-    // I would set code 403, but postman tests require 404
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Map<String, String> handleUserAccessForbiddenException(UserAccessForbiddenException e) {
@@ -97,11 +96,11 @@ public class ErrorHandler {
         log.error(e.getMessage());
         return Map.of("Search for ItemRequest failed", e.getMessage());
     }
-
+    // Added HttpStatus.INTERNAL_SERVER_ERROR using ErrorResponse
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public Map<String, String> handleUnknownException(Throwable e) {
+    public ErrorResponse handleUnknownException(Throwable e) {
         log.error(e.toString());
-        return Map.of("Unknown error has occurred", e.getMessage());
+        return new ErrorResponse("Unknown error has occurred", e.getMessage());
     }
 }

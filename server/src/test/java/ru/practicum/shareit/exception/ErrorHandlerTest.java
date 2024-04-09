@@ -1,27 +1,47 @@
-package ru.practicum.shareit.exception;
+package ru.practicum.shareit.exception; // Tests were added
 
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
+import org.springframework.core.MethodParameter;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import javax.validation.constraints.PositiveOrZero;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import java.util.Map;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 public class ErrorHandlerTest {
 
     private ErrorHandler errorHandler = new ErrorHandler();
 
     @Test
     public void handleUserValidationExceptionTest() {
-        Map<String, String> response = errorHandler.handleUserValidationException(new UserValidationException(""));
-
-        assertEquals(response, Map.of("Validation for user failed", ""));
+        UserValidationException exception = new UserValidationException("");
+        ErrorResponse response = errorHandler.handleUserValidationException(exception);
+        assertEquals(response.getMessage(), "Validation for user failed");
     }
 
     @Test
-    public void handleUserNotFoundExceptionTest() {
-        Map<String, String> response = errorHandler.handleUserNotFoundException(new UserNotFoundException(""));
+    @PositiveOrZero
+    public void handleMethodArgumentNotValidExceptionTest() {
+        // Creating object MethodArgumentNotValidException with real BindingResult
+        MethodArgumentNotValidException exception = createExceptionWithBindingResult();
+        ErrorResponse response = errorHandler.handleMethodArgumentNotValidException(exception);
+        assertEquals(response.getMessage(), "Validation failed");
+    }
 
-        assertEquals(response, Map.of("Search for user failed", ""));
+    private MethodArgumentNotValidException createExceptionWithBindingResult() {
+        BindingResult bindingResult = mock(BindingResult.class);
+        when(bindingResult.getFieldError()).thenReturn(new FieldError("objectName", "fieldName", "validationMessage"));
+        MethodParameter methodParameter = new MethodParameter(MethodArgumentNotValidException.class.getDeclaredConstructors()[0], -1);
+        return new MethodArgumentNotValidException(methodParameter, bindingResult);
+    }
+    @Test
+    public void handleUserNotFoundExceptionTest() {
+        UserNotFoundException exception = new UserNotFoundException("");
+        ErrorResponse response = errorHandler.handleUserNotFoundException(exception);
+        assertEquals(response.getMessage(), "Search for user failed");
     }
 
     @Test
@@ -86,11 +106,11 @@ public class ErrorHandlerTest {
 
         assertEquals(response, Map.of("Search for ItemRequest failed", ""));
     }
-
+    // Added handleUnknownExceptionTest using ErrorResponse
     @Test
     public void handleUnknownExceptionTest() {
-        Map<String, String> response = errorHandler.handleUnknownException(new Throwable(""));
-
-        assertEquals(response, Map.of("Unknown error has occurred", ""));
+        Throwable exception = new Throwable("");
+        ErrorResponse response = errorHandler.handleUnknownException(exception);
+        assertEquals(response.getMessage(), "Unknown error has occurred");
     }
 }
