@@ -6,7 +6,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import java.util.Map;
 
 @RestControllerAdvice
@@ -96,6 +95,7 @@ public class ErrorHandler {
         log.error(e.getMessage());
         return Map.of("Search for ItemRequest failed", e.getMessage());
     }
+
     // Added HttpStatus.INTERNAL_SERVER_ERROR using ErrorResponse
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -6,7 +6,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import javax.validation.constraints.PositiveOrZero;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Map;
 import static org.mockito.Mockito.mock;
@@ -106,6 +105,7 @@ public class ErrorHandlerTest {
 
         assertEquals(response, Map.of("Search for ItemRequest failed", ""));
     }
+    
     // Added handleUnknownExceptionTest using ErrorResponse
     @Test
     public void handleUnknownExceptionTest() {
