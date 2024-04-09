@@ -36,6 +36,7 @@ public class ErrorHandlerTest {
         MethodParameter methodParameter = new MethodParameter(MethodArgumentNotValidException.class.getDeclaredConstructors()[0], -1);
         return new MethodArgumentNotValidException(methodParameter, bindingResult);
     }
+
     @Test
     public void handleUserNotFoundExceptionTest() {
         UserNotFoundException exception = new UserNotFoundException("");
@@ -105,8 +106,7 @@ public class ErrorHandlerTest {
 
         assertEquals(response, Map.of("Search for ItemRequest failed", ""));
     }
-    
-    // Added handleUnknownExceptionTest using ErrorResponse
+
     @Test
     public void handleUnknownExceptionTest() {
         Throwable exception = new Throwable("");
